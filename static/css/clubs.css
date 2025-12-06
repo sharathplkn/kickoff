@@ -1,0 +1,126 @@
+/* --- Wrapper Layout --- */
+.clubs-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+/* --- Header Section --- */
+.clubs-header {
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.clubs-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background: linear-gradient(to right, #ffffff, #a8ff78);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.clubs-header p {
+    color: #a8ff78; /* Neon green subtitle */
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* --- Grid Layout --- */
+.clubs-grid {
+    display: grid;
+    /* Responsive grid: columns will autofit, min width 250px */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding-bottom: 40px;
+}
+
+/* --- Club Card (Anchor Tag) --- */
+.club-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20, 20, 20, 0.75); /* Dark Glass */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    text-decoration: none; /* Remove underline from link */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.27);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover Effects */
+.club-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: #a8ff78;
+    box-shadow: 0 20px 40px rgba(168, 255, 120, 0.2); /* Neon glow */
+}
+
+/* --- Club Logo --- */
+.club-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.club-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+}
+
+.club-card:hover .club-logo {
+    transform: scale(1.1); /* Logo pops slightly on hover */
+}
+
+/* --- Club Name --- */
+.club-name h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.club-card:hover .club-name h3 {
+    color: #a8ff78; /* Turns neon green on hover */
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 600px) {
+    .clubs-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .clubs-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Smaller cards on mobile */
+        gap: 15px;
+    }
+
+    .club-logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    .club-name h3 {
+        font-size: 1.1rem;
+    }
+}

@@ -1,0 +1,128 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Players Auction - KICKOFF</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/player.css' %}">
+
+    <style>
+        body {
+            background-image: url("{% static 'images/back.webp' %}");
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="wrapper">
+
+        <header class="header glass-panel">
+            <div class="logo-container">
+                <i class="fas fa-futbol logo-icon"></i>
+                <h1 class="site-title">KICKOFF</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                    <li><a href="{% url 'clubs' %}" class="nav-link">Clubs</a></li>
+                    <li><a href="{% url 'players' %}" class="nav-link active">Players</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="logout-btn" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+
+            <div class="dashboard-header">
+                <h2>AUCTION POOL</h2>
+                <p class="subtitle">Click a player to start bidding</p>
+            </div>
+
+            <section class="player-grid-section">
+                
+                {% for player in players %}
+                <div class="auction-card-wrapper">
+                    
+                    <a href="{% url 'auction' player.id %}" class="auction-card">
+                        
+                        <div class="auction-img-box">
+                            {% if player.card_image %}
+                                <img src="{{ player.card_image.url }}" alt="{{ player.name }}">
+                            {% else %}
+                                <div class="no-img-placeholder">
+                                    <i class="fas fa-user-secret"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if player.team %}
+                        <div class="sold-overlay">
+                            <div class="sold-stamp">SOLD</div>
+                            <p class="sold-to">To {{ player.team.team_name }}</p>
+                        </div>
+                        {% endif %}
+                        {% if player.captain_of_team %}
+                            <div class="captain-badge">CAPTAIN</div>
+                        {% endif %}
+
+                        
+                        <div class="card-footer">
+                            <h3>{{ player.name }}</h3>
+                        </div>
+                    </a>
+
+                </div>
+                {% empty %}
+                    <div class="glass-panel" style="width: 100%; padding: 30px; text-align: center;">
+                        <p style="color: #ccc;">No players available in the pool.</p>
+                    </div>
+                {% endfor %}
+
+            </section>
+
+            <div class="pagination-wrapper">
+                <div class="pagination-glass">
+                    {% if players.has_previous %}
+                        <a href="?page=1" class="page-btn"><i class="fas fa-angle-double-left"></i></a>
+                        <a href="?page={{ players.previous_page_number }}" class="page-btn"><i class="fas fa-angle-left"></i></a>
+                    {% endif %}
+
+                    <span class="current-page">
+                        Page {{ players.number }} of {{ players.paginator.num_pages }}
+                    </span>
+
+                    {% if players.has_next %}
+                        <a href="?page={{ players.next_page_number }}" class="page-btn"><i class="fas fa-angle-right"></i></a>
+                        <a href="?page={{ players.paginator.num_pages }}" class="page-btn"><i class="fas fa-angle-double-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="footer glass-panel">
+            <p>&copy; KICKOFF 2024-2025 — Developed by Int. M.Sc. Computer Science, NASC</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

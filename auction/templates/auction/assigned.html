@@ -1,0 +1,39 @@
+{% extends "auction/home.html" %}
+{% load static %}
+
+{% block title %}Player Assigned{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/assigned.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+
+<!-- Fireworks -->
+<div class="firework" style="--size:5vmin; animation-delay:0s;"></div>
+<div class="firework" style="--size:6vmin; animation-delay:.4s;"></div>
+<div class="firework" style="--size:7vmin; animation-delay:.8s;"></div>
+
+<section class="assign-container">
+
+    <!-- SOLD STAMP -->
+    <div class="sold-stamp">SOLD</div>
+
+    <h1>Player Sold Successfully!</h1>
+
+    <div class="assign-images">
+        <img src="{{ player.card_image.url }}" alt="{{ player.name }} Card" class="player-img">
+        <img src="{{ club.logo.url }}" alt="{{ club.team_name }} Logo" class="club-img">
+    </div>
+
+    <p class="assign-text">
+        {{ player.name }} has been purchased by <strong>{{ club.team_name }}</strong>!
+    </p>
+
+    <a href="{% url 'players' %}">
+        <button class="btn">Go to Players</button>
+    </a>
+
+</section>
+
+{% endblock %}

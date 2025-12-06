@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams - Bytez Premier League</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <style>
+        body {
+            /* Loads the same background image */
+            background-image: url("{% static 'images/back.webp' %}");
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="wrapper">
+        
+        <header class="header glass-panel">
+            <div class="logo-container">
+                <i class="fas fa-futbol logo-icon"></i>
+                <h1 class="site-title">KICKOFF</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                    <li><a href="{% url 'clubs' %}" class="nav-link active">Clubs</a></li>
+                    <li><a href="{% url 'players' %}" class="nav-link">Players</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="logout-btn" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+
+            <div class="dashboard-header">
+                <h2>Registered Clubs</h2>
+                <p class="subtitle">The Contenders</p>
+            </div>
+            
+            <section class="content-section">
+                <div class="grid-container">
+                    {% for team in teams %}
+                        <div class="card team-card">
+                            <div class="card-img-wrapper team-img-wrapper">
+                                {% if team.logo %}
+                                    <img src="{{ team.logo.url }}" alt="{{ team.team_name }}">
+                                {% else %}
+                                    <i class="fas fa-shield-alt placeholder-icon"></i>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="card-content">
+                                <h4 class="card-title">{{ team.team_name }}</h4>
+                                
+                                <div class="info-row">
+                                    <span class="label">Manager</span>
+                                    <span class="value">{{ team.manager }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="label">Owner</span>
+                                    <span class="value">{{ team.owner }}</span>
+                                </div>
+                                
+                                <div class="purse-badge">
+                                    <i class="fas fa-wallet"></i>
+                                    <span>₹{{ team.purse_remaining }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="glass-panel" style="grid-column: 1/-1; padding: 20px; text-align: center; border-radius: 10px;">
+                            <p style="color: #ccc;">No teams have registered yet.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            {% if players %}
+            <section class="content-section">
+                <div class="section-header">
+                    <i class="fas fa-users"></i>
+                    <h3>Associated Players</h3>
+                </div>
+                
+                <div class="grid-container">
+                    {% for player in players %}
+                        <div class="card player-card">
+                            <div class="card-img-wrapper player-img-wrapper">
+                                {% if player.card_image %}
+                                    <img src="{{ player.card_image.url }}" alt="{{ player.name }}">
+                                {% else %}
+                                    <i class="fas fa-user placeholder-icon"></i>
+                                {% endif %}
+                            </div>
+                            <div class="card-content">
+                                <h4 class="card-title">{{ player.name }}</h4>
+                                <span class="player-year">{{ player.year }} Year</span>
+                                <div class="price-tag">₹{{ player.base_price }}</div>
+                                <div class="team-status {% if player.team %}assigned{% else %}unassigned{% endif %}">
+                                    {{ player.team.team_name|default:"Unsold" }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+        </main>
+
+        <footer class="footer glass-panel">
+            <p>&copy; KICKOFF 2024-2025 — Developed by Int. M.Sc. Computer Science, NASC</p>
+        </footer>
+
+    </div>
+</body>
+</html>

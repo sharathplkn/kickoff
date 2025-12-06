@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KICKOFF - Football Auction Platform{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% block stylesheet %}{% endblock stylesheet %}
+
+    <style>
+        body {
+            /* Loads the background image via Django static tag */
+            background-image: url("{% static 'images/back.webp' %}");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay"></div>
+
+    <div class="wrapper">
+        
+        <header class="header glass-panel">
+            <div class="logo-container">
+                <i class="fas fa-futbol logo-icon"></i>
+                <h1 class="site-title">KICKOFF</h1>
+            </div>
+
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                    <li><a href="{% url 'clubs' %}" class="nav-link">Clubs</a></li>
+                    <li><a href="{% url 'players' %}" class="nav-link">Players</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="logout-btn" type="submit">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="league-banner">
+            <h2 class="league-name">NOORUL HUDHA EMS SOCCER LEAGUE</h2>
+            <p class="league-season">SEASON 2 2025</p>
+        </div>
+
+        <main class="main-content">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="footer glass-panel">
+            <p>&copy; KICKOFF 2024-2025 — Developed by Int. M.Sc. Computer Science, NASC</p>
+        </footer>
+
+    </div>
+</body>
+</html>

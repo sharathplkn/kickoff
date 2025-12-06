@@ -1,0 +1,79 @@
+{% extends 'auction/home.html' %}
+{% load static %}
+
+{% block title %}{{ team.team_name }}{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/team_detail.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+
+<div class="team-detail-wrapper">
+
+    <!-- TEAM HEADER -->
+    <header class="team-header">
+        <img src="{{ team.logo.url }}" alt="{{ team.team_name }} Logo" class="team-logo">
+        <div class="team-header-info">
+            <h1>{{ team.team_name }}</h1>
+
+            <p class="purse">
+                <strong>Purse Remaining:</strong>
+                <span class="highlight">${{ team.purse_remaining }} M</span>
+            </p>
+
+            <p class="captain-info">
+                <strong>Captain:</strong>
+                {% if captain %}
+                    <span>{{ captain.name }}</span>
+                {% else %}
+                    <span class="none">Not assigned</span>
+                {% endif %}
+            </p>
+        </div>
+    </header>
+
+    <!-- CAPTAIN SECTION -->
+    <section class="captain-section">
+        <h2>Team Captain</h2>
+
+        {% if captain %}
+        <div class="captain-card">
+            <img src="{{ captain.card_image.url }}" alt="{{ captain.name }}">
+            <h3>{{ captain.name }}</h3>
+        </div>
+        {% else %}
+            <p class="none">No captain assigned yet.</p>
+        {% endif %}
+    </section>
+
+    <!-- PLAYERS GRID -->
+    <section class="players-section">
+        <h2>Players</h2>
+
+        <div class="players-grid">
+            {% for player in players %}
+            <div class="player-card">
+
+                <img src="{{ player.card_image.url }}" alt="{{ player.name }} Card" class="player-image">
+
+                <div class="player-info">
+                    <h3>{{ player.name }}</h3>
+                    <p><strong>Price:</strong> ${{ player.base_price }} M</p>
+                </div>
+
+            </div>
+            {% empty %}
+                <p class="none">No players assigned to this team.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- BACK LINK -->
+    <div class="back">
+        <a href="{% url 'clubs' %}" class="back-link">← Back to Clubs</a>
+    </div>
+
+</div>
+
+{% endblock %}

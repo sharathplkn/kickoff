@@ -1,0 +1,39 @@
+{% extends 'auction/home.html' %}
+{% load static %}
+
+{% block title %}Clubs{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/clubs.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+
+<div class="clubs-wrapper">
+
+    <header class="clubs-header">
+        <h1>CLUBS</h1>
+        <p>Select a club to view its players and details.</p>
+    </header>
+
+    <section class="clubs-grid">
+
+        {% for club in clubs %}
+        <a href="{% url 'team_detail' club.id %}" class="club-card">
+
+            <div class="club-logo">
+                <img src="{{ club.logo.url }}" alt="{{ club.team_name }} Logo">
+            </div>
+
+            <div class="club-name">
+                <h3>{{ club.team_name }}</h3>
+            </div>
+
+        </a>
+        {% endfor %}
+
+    </section>
+
+</div>
+
+{% endblock %}

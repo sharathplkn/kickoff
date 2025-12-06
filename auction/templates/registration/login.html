@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KICKOFF - Football Auction Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    
+    <style>
+        body {
+            /* Adjust 'images/' below to match where you saved back.webp */
+            background-image: url("{% static 'images/back.webp' %}");
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="overlay"></div>
+
+    <div class="main-wrapper">
+        <h1 class="event-title">
+            <span class="title-text">KICKOFF</span>
+        </h1>
+        
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo-container">
+                    <div class="icon-circle">
+                        <i class="fas fa-futbol ball-icon"></i>
+                    </div>
+                    <h2>Welcome Back</h2>
+                    <p class="tagline">Enter the pitch of excitement</p>
+                </div>
+            </div>
+            
+            <form method="post" id="loginForm">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="message-box error-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message-box success-box">
+                            <i class="fas fa-check-circle"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        {{ form.username }}
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        {{ form.password }}
+                    </div>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginButton">
+                    <span class="btn-text">LOGIN</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+        
+        <footer class="page-footer">
+            <p>© 2024 KICKOFF - ICS NASC KANHANGAD</p>
+        </footer>
+    </div>
+
+</body>
+</html>

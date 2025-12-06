@@ -1,0 +1,182 @@
+{% extends 'auction/home.html' %}
+{% load static %}
+
+{% block title %}Auction – {{ player.name }}{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'css/auction.css' %}">
+{% endblock stylesheet %}
+
+{% block content %}
+
+<div class="auction-wrapper">
+
+    {# Confirm modal only if player is NOT sold #}
+    {% if not is_sold and not is_captain%}
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to submit this bid?</p>
+
+            <ul class="cd-buttons">
+                <li><a href="#0" id="confirm-yes">Yes</a></li>
+                <li><a href="#0" id="confirm-no">No</a></li>
+            </ul>
+
+            <a href="#0" class="cd-popup-close img-replace">Close</a>
+        </div>
+    </div>
+    {% endif %}
+
+    <section class="auction-left">
+
+        <h1 class="player-name">{{ player.name }}</h1>
+
+        <div class="player-image-wrapper">
+            <img src="{{ player.card_image.url }}" alt="{{ player.name }} Card" class="player-image">
+        </div>
+
+        <div class="player-base-info">
+            {% if is_sold %}
+                <p><strong>Sold Price:</strong> ${{ player.sold_price }} M</p>
+                <p><strong>Sold To:</strong> {{ player.team.team_name }}</p>
+            {% else %}
+                <p><strong>Base Price:</strong> ${{ player.base_price }} M</p>
+            {% endif %}
+        </div>
+
+        {% if not is_sold and not is_captain%}
+            <form method="POST" id="bid-form" class="bid-form">
+                {% csrf_token %}
+
+                <div class="price-display">
+                    <label>Price:</label>
+                    <span id="price_display">{{ form.price.value|default:"20" }}</span>
+                </div>
+
+                <div class="price-controls">
+                    <button type="button" onclick="changePrice(-10)">-</button>
+                    <button type="button" onclick="changePrice(10)">+</button>
+                </div>
+
+                <div class="radio-grid">
+                    {% for radio in form.team %}
+                    <label class="radio-item">
+                        {{ radio.tag }}
+                        <span>{{ radio.choice_label }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+
+                <input type="hidden" name="price" id="id_price" value="20">
+
+                <button type="button" class="btn-submit" id="submit-bid-button">
+                    Submit Bid
+                </button>
+            </form>
+
+            <a href="{% url 'players' %}" class="btn-back">
+                ← Go Back (Unsold)
+            </a>
+
+            {# Admin can still remove player even if unsold #}
+            {% if request.user.is_staff %}
+                <form method="POST" style="margin-top: 0.5rem;">
+                    {% csrf_token %}
+                    <button type="submit" name="delete_player" class="btn-danger"
+                            onclick="return confirm('Are you sure you want to permanently remove this player?');">
+                        🗑️ Remove Player
+                    </button>
+                </form>
+            {% endif %}
+
+        {% else %}
+            <div class="sold-banner">
+                This player has been <strong>SOLD</strong> to {{ player.team.team_name }}
+                for ${{ player.base_price }} M. No further bidding is allowed.
+            </div>
+
+            <a href="{% url 'players' %}" class="btn-back">
+                ← Back to Players
+            </a>
+
+            {% if request.user.is_staff %}
+                <form method="POST" style="margin-top: 1rem;">
+                    {% csrf_token %}
+                    <button type="submit" name="unsell_player" class="btn-warning">
+                        ❌ Unsell Player
+                    </button>
+                </form>
+
+                <form method="POST" style="margin-top: 0.5rem;">
+                    {% csrf_token %}
+                    <button type="submit" name="delete_player" class="btn-danger"
+                            onclick="return confirm('Are you sure you want to permanently remove this player?');">
+                        🗑️ Remove Player
+                    </button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+    </section>
+
+    <aside class="auction-right">
+        <h2>Team Purse</h2>
+
+        <div class="teams-list">
+        {% for t in teams %}
+            <div class="team-card">
+                <img src="{{ t.logo.url }}" alt="{{ t.team_name }} Logo" class="team-logo">
+
+                <div class="team-info">
+                    <h3>{{ t.team_name }}</h3>
+                    <p><strong>Purse:</strong> ${{ t.purse_remaining }} M</p>
+                    <p><strong>Players:</strong> {{ t.players.count }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    </aside>
+
+</div>
+
+{# JS only needed when player is NOT sold #}
+{% if not is_sold %}
+<script>
+function changePrice(amount) {
+    var priceInput = document.getElementById('id_price');
+    var newPrice = parseInt(priceInput.value) + amount;
+
+    if (newPrice >= 0) {
+        priceInput.value = newPrice;
+        document.getElementById('price_display').innerText = newPrice;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.querySelector(".cd-popup");
+    const submitButton = document.getElementById("submit-bid-button");
+    const form = document.getElementById("bid-form");
+
+    submitButton.addEventListener("click", () => modal.classList.add("is-visible"));
+    document.getElementById("confirm-no").addEventListener("click", e => {
+        e.preventDefault();
+        modal.classList.remove("is-visible");
+    });
+    document.getElementById("confirm-yes").addEventListener("click", e => {
+        e.preventDefault();
+        form.submit();
+    });
+    document.querySelector(".cd-popup-close").addEventListener("click", e => {
+        e.preventDefault();
+        modal.classList.remove("is-visible");
+    });
+
+    window.addEventListener("click", e => {
+        if (e.target === modal) modal.classList.remove("is-visible");
+    });
+});
+</script>
+{% endif %}
+
+{% endblock %}
