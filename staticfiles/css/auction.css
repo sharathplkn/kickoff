@@ -1,0 +1,384 @@
+/* --- Layout & Wrapper --- */
+.auction-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Reduced gap */
+    align-items: flex-start;
+    max-width: 1100px; /* Limit total width */
+    margin: 0 auto; /* Center horizontally */
+}
+
+/* --- Left Side: Auction Area --- */
+.auction-left {
+    flex: 2; 
+    min-width: 300px;
+    background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px; /* Smaller radius */
+    padding: 20px; /* Reduced padding */
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.player-name {
+    font-size: 1.8rem; /* Smaller font */
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #ffffff, #a8ff78);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.player-image-wrapper {
+    margin: 0 auto 15px;
+    max-width: 180px; /* Much smaller image */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(168, 255, 120, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.player-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.player-base-info {
+    font-size: 0.95rem; /* Smaller text */
+    margin-bottom: 15px;
+    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    min-width: 150px;
+}
+
+/* --- Bidding Controls --- */
+.bid-form {
+    margin-top: 10px;
+}
+
+.price-display {
+    font-size: 2.5rem; /* Smaller number */
+    font-weight: 900;
+    color: #a8ff78;
+    text-shadow: 0 0 10px rgba(168, 255, 120, 0.4);
+    margin: 5px 0;
+    font-family: monospace;
+}
+
+.price-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.price-controls button {
+    width: 35px; /* Smaller buttons */
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #a8ff78;
+    background: rgba(168, 255, 120, 0.1);
+    color: #a8ff78;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3px; /* visual fix for alignment */
+}
+
+.price-controls button:hover {
+    background: #a8ff78;
+    color: #000;
+    transform: scale(1.1);
+}
+
+/* --- Team Selection Radio Grid --- */
+.radio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Tighter grid */
+    gap: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.radio-item {
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-item span {
+    display: block;
+    padding: 8px; /* Less padding */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 0.8rem; /* Smaller font */
+    text-align: center;
+    transition: all 0.2s;
+    color: #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.radio-item input[type="radio"]:checked + span {
+    background: #a8ff78;
+    color: #000;
+    font-weight: bold;
+    border-color: #a8ff78;
+}
+
+/* --- Buttons --- */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 10px; /* Slimmer button */
+    background: linear-gradient(to right, #11998e, #38ef7d);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-bottom: 10px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(56, 239, 125, 0.3);
+}
+
+.btn-back {
+    display: inline-block;
+    text-decoration: none;
+    color: #aaa;
+    font-size: 0.8rem;
+    transition: color 0.2s;
+    margin-bottom: 5px;
+}
+
+.btn-back:hover {
+    color: #fff;
+}
+
+/* Admin Buttons */
+.btn-danger, .btn-warning {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+
+.btn-danger {
+    background: rgba(255, 82, 82, 0.2);
+    border: 1px solid rgba(255, 82, 82, 0.5);
+    color: #ff5252;
+}
+
+.btn-warning {
+    background: rgba(255, 204, 0, 0.2);
+    border: 1px solid rgba(255, 204, 0, 0.5);
+    color: #ffcc00;
+}
+
+/* --- Right Side: Team Purse Sidebar --- */
+.auction-right {
+    flex: 1;
+    min-width: 250px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px; /* Reduced padding */
+    height: fit-content;
+}
+
+.auction-right h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.teams-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+     /* Reduced max height */
+    overflow-y: auto;
+}
+
+/* Small Team Card in Sidebar */
+.auction-right .team-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.team-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.team-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.team-info p {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin: 0;
+}
+
+/* --- SOLD Status Banner --- */
+.sold-banner {
+    background: rgba(168, 255, 120, 0.15);
+    border: 1px solid #a8ff78;
+    color: #a8ff78;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* --- Popup Modal (CD Popup) --- */
+.cd-popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s 0s, visibility 0s 0.3s;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cd-popup.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.cd-popup-container {
+    position: relative;
+    width: 90%;
+    max-width: 320px; /* Smaller popup */
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(168, 255, 120, 0.1);
+    transform: translateY(-20%);
+    transition-property: transform;
+    transition-duration: 0.3s;
+    overflow: hidden;
+}
+
+.is-visible .cd-popup-container {
+    transform: translateY(0);
+}
+
+.cd-popup-container p {
+    padding: 20px 15px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.cd-buttons {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.cd-buttons li {
+    flex: 1;
+    width: 50%;
+}
+
+.cd-buttons a {
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.cd-buttons li:first-child a {
+    background: #38ef7d;
+    color: #000;
+}
+
+.cd-buttons li:first-child a:hover {
+    background: #2ecb68;
+}
+
+.cd-buttons li:last-child a {
+    background: #444;
+}
+
+.cd-buttons li:last-child a:hover {
+    background: #555;
+}
+
+.cd-popup-close {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    color: #666;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 768px) {
+    .auction-wrapper {
+        flex-direction: column;
+    }
+    
+    .auction-left, .auction-right {
+        width: 100%;
+        flex: auto;
+    }
+}

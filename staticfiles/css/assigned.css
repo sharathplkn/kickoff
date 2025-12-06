@@ -1,0 +1,138 @@
+/* ========================
+   Container
+======================== */
+.assign-container {
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.assign-container h1 {
+    font-size: 28px;
+    color: #66fcf1;
+    margin-bottom: 20px;
+}
+
+.assign-text {
+    margin-top: 15px;
+    color: #c5c6c7;
+    font-size: 16px;
+}
+
+/* ========================
+   Images
+======================== */
+.assign-images {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.player-img, .club-img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    border: 2px solid #66fcf1;
+    border-radius: 8px;
+}
+
+/* ========================
+   Button
+======================== */
+.btn {
+    margin-top: 25px;
+    padding: 10px 25px;
+    background: transparent;
+    color: white;
+    border: 2px solid #ffc506;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #ffc506;
+    color: #0b0c10;
+}
+
+/* ========================
+   SOLD Stamp
+======================== */
+.sold-stamp {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 12px 35px;
+    font-size: 36px;
+    color: #ff1a1a;
+    border: 5px solid #ff1a1a;
+    font-weight: 900;
+    transform: rotate(-20deg) scale(0);
+    opacity: 0;
+    animation: stamp 0.8s ease-out forwards 1s;
+}
+
+@keyframes stamp {
+    0% { transform: rotate(-20deg) scale(3); opacity: 0; }
+    50% { transform: rotate(-20deg) scale(1.1); opacity: 1; }
+    100% { transform: rotate(-20deg) scale(1); opacity: 1; }
+}
+
+/* ========================
+   Fireworks
+======================== */
+.firework {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: var(--size, 4vmin);
+    height: var(--size, 4vmin);
+    pointer-events: none;
+    animation: firework 1.8s infinite;
+}
+
+.firework::before,
+.firework::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle, #ff4e50 30%, transparent 60%),
+        radial-gradient(circle, #fc913a 30%, transparent 60%),
+        radial-gradient(circle, #f9d423 30%, transparent 60%),
+        radial-gradient(circle, #ede574 30%, transparent 60%),
+        radial-gradient(circle, #e1f5c4 30%, transparent 60%);
+    background-size: 25% 25%;
+    background-position: 
+        10% 10%, 
+        90% 10%, 
+        50% 50%, 
+        10% 90%, 
+        90% 90%;
+    background-repeat: no-repeat;
+    animation: explosion 1.8s infinite;
+}
+
+.firework::after {
+    transform: rotate(45deg);
+}
+
+@keyframes firework {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    60% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(0.4); opacity: 0; }
+}
+
+@keyframes explosion {
+    0% { transform: scale(0.3); }
+    60% { transform: scale(1); }
+    100% { transform: scale(0); }
+}
