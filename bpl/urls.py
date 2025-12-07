@@ -24,7 +24,7 @@ urlpatterns = [
     path("accounts/", include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('', include('auction.urls')),
-    
     # Add this specific rule to serve media files in production
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
 ]
+
