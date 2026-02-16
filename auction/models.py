@@ -2,7 +2,7 @@ from django.db import models
 
 class Team(models.Model):
     team_name = models.CharField(max_length=100, null=True)
-    logo = models.ImageField(upload_to='logo/',null=True)
+    logo = models.ImageField(upload_to='logo/', null=True)
     purse_remaining = models.IntegerField(default=1000)
 
     captain = models.OneToOneField(
@@ -10,11 +10,16 @@ class Team(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='captain_of_team'   # unique name added
+        related_name='captain_of_team'
     )
+
+    # ✅ New Fields
+    manager_name = models.CharField(max_length=100, null=True, blank=True)
+    manager_card = models.ImageField(upload_to='manager_cards/', null=True, blank=True)
 
     def __str__(self):
         return self.team_name
+
 
 
 class Player(models.Model):

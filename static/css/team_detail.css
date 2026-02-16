@@ -2,7 +2,7 @@
 .team-detail-wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 20px 60px; /* Extra bottom padding for scroll */
+    padding: 20px 20px 60px;
     width: 100%;
 }
 
@@ -17,13 +17,12 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
 }
 
-/* Subtle glow behind the header */
 .team-header::before {
     content: '';
     position: absolute;
@@ -59,7 +58,7 @@
 }
 
 .team-header-info .highlight {
-    color: #a8ff78; /* Neon Green */
+    color: #a8ff78;
     font-weight: 700;
     font-size: 1.3rem;
     margin-left: 5px;
@@ -67,7 +66,7 @@
 }
 
 .captain-info span {
-    color: #ffd700; /* Gold for Captain Name */
+    color: #ffd700;
     font-weight: 600;
 }
 
@@ -87,28 +86,38 @@ h2 {
     letter-spacing: 1px;
 }
 
-/* --- Captain Section --- */
-.captain-section {
-    margin-bottom: 50px;
+/* --- Leadership Row (UPDATED CLEAN VERSION) --- */
+.leadership-row {
+    display: flex;
+    justify-content: center;     /* center both cards together */
+    align-items: flex-start;
+    gap: 80px;                   /* space between captain & manager */
+    margin-bottom: 60px;
+    flex-wrap: wrap;
 }
 
-/* Special Gold Styling for Captain Card */
+.captain-section,
+.manager-section {
+    text-align: center;
+}
+
+/* --- Captain / Manager Card --- */
 .captain-card {
     display: inline-flex;
     flex-direction: column;
     width: 280px;
-    background: rgba(30, 30, 30, 0.8);
-    border: 2px solid rgba(255, 215, 0, 0.3); /* Gold Border */
+    background: rgba(30, 30, 30, 0.85);
+    border: 2px solid rgba(255, 215, 0, 0.3);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .captain-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     border-color: #ffd700;
-    box-shadow: 0 0 35px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 35px rgba(255, 215, 0, 0.35);
 }
 
 .captain-card img {
@@ -137,9 +146,8 @@ h2 {
     gap: 25px;
 }
 
-/* Standard Player Card */
 .player-card {
-    background: rgba(20, 20, 20, 0.6);
+    background: rgba(20, 20, 20, 0.7);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
@@ -151,7 +159,7 @@ h2 {
 
 .player-card:hover {
     transform: translateY(-5px);
-    background: rgba(40, 40, 40, 0.8);
+    background: rgba(40, 40, 40, 0.85);
     border-color: rgba(168, 255, 120, 0.5);
     box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
@@ -217,6 +225,7 @@ h2 {
 
 /* --- Responsive Layout --- */
 @media (max-width: 768px) {
+
     .team-header {
         flex-direction: column;
         text-align: center;
@@ -233,10 +242,16 @@ h2 {
         font-size: 2.2rem;
     }
 
+    .leadership-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
     .players-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
-    
+
     .player-image {
         height: 180px;
     }

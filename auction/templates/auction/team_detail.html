@@ -33,19 +33,40 @@
         </div>
     </header>
 
-    <!-- CAPTAIN SECTION -->
-    <section class="captain-section">
-        <h2>Team Captain</h2>
+    <div class="leadership-row">
+           <!-- Manager -->
 
-        {% if captain %}
-        <div class="captain-card">
-            <img src="{{ captain.card_image.url }}" alt="{{ captain.name }}">
-            <h3>{{ captain.name }}</h3>
-        </div>
-        {% else %}
-            <p class="none">No captain assigned yet.</p>
-        {% endif %}
-    </section>
+        <section class="manager-section">
+            <h2>Team Manager</h2>
+
+            {% if team.manager_name and team.manager_card %}
+            <div class="captain-card">
+                <img src="{{ team.manager_card.url }}" alt="{{ team.manager_name }}">
+                <h3>{{ team.manager_name }}</h3>
+            </div>
+            {% else %}
+                <p class="none">No manager assigned yet.</p>
+            {% endif %}
+        </section>
+        <!-- Captain -->
+        <section class="captain-section">
+            <h2>Team Captain</h2>
+
+            {% if captain %}
+            <div class="captain-card">
+                <img src="{{ captain.card_image.url }}" alt="{{ captain.name }}">
+                <h3>{{ captain.name }}</h3>
+            </div>
+            {% else %}
+                <p class="none">No captain assigned yet.</p>
+            {% endif %}
+        </section>
+
+     
+
+
+    </div>
+
 
     <!-- PLAYERS GRID -->
     <section class="players-section">
@@ -59,7 +80,7 @@
 
                 <div class="player-info">
                     <h3>{{ player.name }}</h3>
-                    <p><strong>Price:</strong> ${{ player.base_price }} M</p>
+                    <p><strong>Price:</strong> ${{ player.sold_price }} M</p>
                 </div>
 
             </div>
